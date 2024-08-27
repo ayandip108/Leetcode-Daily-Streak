@@ -8,22 +8,24 @@ class Solution {
             g[a].add(new Pair<>(b, s));
             g[b].add(new Pair<>(a, s));
         }
-        PriorityQueue<Pair<Double, Integer>> q
-            = new PriorityQueue<>(Comparator.comparingDouble(Pair::getKey));
         double[] d = new double[n];
         d[start] = 1.0;
-        q.offer(new Pair<>(-1.0, start));
+        boolean[] vis = new boolean[n];
+        Deque<Integer> q = new ArrayDeque<>();
+        q.offer(start);
+        vis[start] = true;
         while (!q.isEmpty()) {
-            Pair<Double, Integer> p = q.poll();
-            double w = p.getKey();
-            w *= -1;
-            int u = p.getValue();
-            for (Pair<Integer, Double> ne : g[u]) {
-                int v = ne.getKey();
-                double t = ne.getValue();
-                if (d[v] < d[u] * t) {
-                    d[v] = d[u] * t;
-                    q.offer(new Pair<>(-d[v], v));
+            int i = q.poll();
+            vis[i] = false;
+            for (Pair<Integer, Double> ne : g[i]) {
+                int j = ne.getKey();
+                double s = ne.getValue();
+                if (d[j] < d[i] * s) {
+                    d[j] = d[i] * s;
+                    if (!vis[j]) {
+                        q.offer(j);
+                        vis[j] = true;
+                    }
                 }
             }
         }
