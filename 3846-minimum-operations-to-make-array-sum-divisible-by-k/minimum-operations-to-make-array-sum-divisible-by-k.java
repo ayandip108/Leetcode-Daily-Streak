@@ -1,0 +1,19 @@
+class Solution {
+    /**
+     * Calculates the minimum number of operations needed based on the sum modulo k.
+     * This appears to find the remainder when the total sum is divided by k,
+     * which could represent the minimum adjustments needed to make the sum divisible by k.
+     * 
+     * @param nums the input array of integers
+     * @param k the divisor value
+     * @return the remainder of the sum of all elements divided by k
+     */
+    public int minOperations(int[] nums, int k) {
+        // Calculate the sum of all elements in the array using streams
+        int totalSum = Arrays.stream(nums).sum();
+      
+        // Return the remainder when the sum is divided by k
+        // This represents the minimum value needed to make the sum divisible by k
+        return totalSum % k;
+    }
+}
